@@ -1,0 +1,73 @@
+<section class="py-16 sm:py-8 px-4">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl sm:text-5xl font-bold text-center mb-12 sm:mb-16 text-balance">
+      <span class="bg-blue-500 bg-clip-text text-transparent font-crimson">
+        Catálogo de Libros
+      </span>
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <ng-container *ngFor="let book of books(); let i = index">
+        @defer (on viewport) {
+          <div
+            class="book-card glass-strong rounded-3xl overflow-hidden transition-all duration-500 group animate-in animate-slide-up-pronounced"
+            [style.animation-delay]="(i * 30) + 'ms'">
+            <div class="relative h-48 sm:h-64 overflow-hidden bg-gray-200 flex items-center justify-center">
+              <img
+                [src]="book.image || '/placeholder.svg'"
+                [alt]="book.title"
+                class="h-full object-contain group-hover:scale-110 transition-transform duration-700"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              <span class="absolute top-4 left-4 bg-accent text-accent-foreground text-white text-xs sm:text-sm px-2 py-1 rounded-2xl bg-violet-500">
+                {{ book.genre }}
+              </span>
+            </div>
+
+            <div class="p-4 sm:p-6 space-y-4 bg-black/70">
+              <div>
+                <h3 class="text-lg sm:text-xl font-bold text-white text-balance">{{ book.title }}</h3>
+                <p class="text-sm sm:text-base text-gray-200">{{ book.author }}</p>
+              </div>
+              <div class="flex gap-2 pt-2">
+                <button 
+                  (click)="editBook(book.id)"
+                  class="flex-1 px-3 py-2 bg-gradient-to-r from-violet-400 to-rose-400 text-black text-sm rounded-lg hover:from-violet-500 hover:to-rose-500 transition-all duration-300">
+                  Editar
+                </button>
+                <button 
+                  (click)="deleteBook(book.id)"
+                  class="flex-1 px-3 py-2 bg-red-400 text-white text-sm rounded-lg hover:bg-red-600 transition-all duration-300">
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        } @placeholder {
+          <div class="book-card glass-strong rounded-3xl overflow-hidden transition-all duration-500 group">
+            <div class="relative h-48 sm:h-64 overflow-hidden bg-gray-300 flex items-center justify-center animate-pulse">
+              <div class="w-full h-full bg-gray-400"></div>
+            </div>
+            <div class="p-4 sm:p-6 space-y-4 bg-black/50">
+              <div class="space-y-2">
+                <div class="h-4 bg-gray-400 rounded animate-pulse"></div>
+                <div class="h-3 bg-gray-500 rounded animate-pulse w-3/4"></div>
+              </div>
+              <div class="flex gap-2 pt-2">
+                <div class="flex-1 h-8 bg-gray-400 rounded-lg animate-pulse"></div>
+                <div class="flex-1 h-8 bg-gray-400 rounded-lg animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        } @loading {
+          <div class="flex items-center justify-center h-48">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-violet-400"></div>
+          </div>
+        } @error {
+          <div class="text-center p-4 text-red-400">
+            Error al cargar el libro
+          </div>
+        }
+      </ng-container>
+    </div>
+  </div>
+</section>

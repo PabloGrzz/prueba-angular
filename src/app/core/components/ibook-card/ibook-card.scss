@@ -1,0 +1,17 @@
+.book-card {
+  transition: all 0.5s;
+
+  &.animate-in {
+    animation-fill-mode: none;
+  }
+
+  &:hover {
+    transform: rotate(0) scale(1.05);
+    box-shadow: 0 25px 50px rgba(139, 92, 246, 0.25);
+  }
+}
+
+.glass-strong {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.1);
+}

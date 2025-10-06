@@ -1,0 +1,118 @@
+<section class="py-16 sm:py-20 px-4">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-balance">
+      <span class="bg-gradient-to-r from-violet-400 to-rose-400 bg-clip-text text-transparent">
+        {{ isEdit() ? 'Actualizar Libro' : 'Añadir Libro'  }}
+      </span>
+    </h2>
+
+    <div class="glass-strong rounded-3xl p-6 sm:p-8 animate-slide-up-pronounced">
+      <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div class="space-y-2">
+          <label for="title" class="text-sm font-medium text-black">
+            Titulo del Libro *
+          </label>
+          <input
+            id="title"
+            type="text"
+            formControlName="title"
+            class="w-full px-4 py-3 bg-background/50 border border-border rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300"
+            placeholder="Introduce el titulo del libro"
+          />
+          <div *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched" 
+               class="text-rose-400 text-sm mt-1">
+            <span *ngIf="bookForm.get('title')?.errors?.['required']">Titulo requerido</span>
+            <span *ngIf="bookForm.get('title')?.errors?.['minlength']">Minimo 3 caracteres requeridos</span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <label for="author" class="text-sm font-medium text-black">
+            Autor *
+          </label>
+          <input
+            id="author"
+            type="text"
+            formControlName="author"
+            class="w-full px-4 py-3 bg-background/50 border border-border rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300"
+            placeholder="Introduce el autor del libro"
+          />
+          <div *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched" 
+               class="text-rose-400 text-sm mt-1">
+            Autor requerido
+          </div>
+        </div>
+        <div class="space-y-2">
+          <label for="year" class="text-sm font-medium text-black">
+            Año de publicación *
+          </label>
+          <input
+            id="year"
+            type="number"
+            formControlName="year"
+            class="w-full px-4 py-3 bg-background/50 border border-border rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300"
+            placeholder="Introduce el año de publicación"
+            min="1000"
+            max="2025"
+          />
+          <div *ngIf="bookForm.get('year')?.invalid && bookForm.get('year')?.touched" 
+               class="text-rose-400 text-sm mt-1">
+            <span *ngIf="bookForm.get('year')?.errors?.['required']">Año requerido</span>
+            <span *ngIf="bookForm.get('year')?.errors?.['min'] || bookForm.get('year')?.errors?.['max']">
+              Porfavor añade un año valido, entre (1000-2024)
+            </span>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <label for="genre" class="text-sm font-medium text-black">
+            Género *
+          </label>
+          <select
+            id="genre"
+            formControlName="genre"
+            class="w-full px-4 py-3 bg-background/50 border border-border rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300">
+            <option value="">Selecciona un género</option>
+            <option value="Ficción">Ficción</option>
+            <option value="Ciencia Ficción">Ciencia Ficción</option>
+            <option value="Fantasía">Fantasía</option>
+            <option value="Romance">Romance</option>
+            <option value="Misterio">Misterio</option>
+            <option value="Horror">Horror</option>
+            <option value="Biografía">Biografía</option>
+            <option value="Historia">Historia</option>
+            <option value="Auto Ayuda">Auto Ayuda</option>
+          </select>
+          <div *ngIf="bookForm.get('genre')?.invalid && bookForm.get('genre')?.touched" 
+               class="text-rose-400 text-sm mt-1">
+            Porfavor selecciona un género
+          </div>
+        </div>
+        <div class="space-y-2">
+          <label for="image" class="text-sm font-medium text-black">
+            Imagen *
+          </label>
+          <input
+            id="image"
+            type="url"
+            formControlName="image"
+            class="w-full px-4 py-3 bg-background/50 border border-border rounded-xl focus:ring-2 focus:ring-violet-400 focus:border-transparent transition-all duration-300"
+            placeholder="https://example.com/book-cover.jpg"
+          />
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <button
+            type="button"
+            (click)="cancel()"
+            class="flex-1 px-6 py-3 bg-red-400 hover:bg-red-600 text-white rounded-xl transition-all duration-300 font-medium">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            [disabled]="bookForm.invalid"
+            class="flex-1 px-6 py-3 bg-gradient-to-r from-violet-400 to-rose-400 text-white rounded-xl font-medium transition-all duration-300 hover:from-violet-500 hover:to-rose-500 disabled:opacity-50 disabled:cursor-not-allowed">
+            {{ isEdit() ? 'Actualizar Libro' : 'Añadir Libro' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

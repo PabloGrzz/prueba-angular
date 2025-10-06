@@ -1,13 +1,17 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
+import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { CoreModule } from './core/services/core-module';
+import { withInterceptors } from '@angular/common/http';
+import { errorInterceptor } from './core/interceptor/error';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
-    provideRouter(routes), provideClientHydration(withEventReplay())
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([errorInterceptor])),
+    importProvidersFrom(
+      CoreModule.forRoot(true) // true = HttpBookService false = InMemoryBookService
+    )
   ]
 };
