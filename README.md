@@ -1,7 +1,9 @@
 📋 Prerrequisitos
 
   Node.js 20.19 o superior
+  
   npm 10.0 o superior
+  
   Angular CLI 20.0 o superior
 
 🛠️ Instalación y Ejecución
